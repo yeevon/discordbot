@@ -40,13 +40,11 @@ def github_webhook():
     return {"status": "ok"}, 200
 
 async def send_to_discord(message):
-    channel = bot.get_channel(CHANNEL_ID)
-    if not channel:
-        print("Channel not found.")
+    thread = bot.get_channel(CHANNEL_ID)
+    if not thread:
+        print("Thread not found.")
         return
 
-    # Optionally create or reuse a thread
-    thread = await channel.create_thread(name="GitHub PR Updates", type=discord.ChannelType.public_thread)
     await thread.send(message)
 
 # Run Flask server and Discord bot
