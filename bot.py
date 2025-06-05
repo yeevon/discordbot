@@ -11,7 +11,7 @@ load_dotenv()
 TOKEN = os.getenv("DISCORD_BOT_TOKEN")
 
 # Your Discord channel ID where you want threads/messages
-CHANNEL_ID = os.getenv("DISCORD_CHANNEL_ID")  # replace with your channel ID
+CHANNEL_ID = int(os.getenv("DISCORD_CHANNEL_ID"))  # replace with your channel ID
 
 # Set up bot intents
 intents = discord.Intents.default()
