@@ -22,7 +22,7 @@ app = Flask(__name__)
 
 @bot.event
 async def on_ready():
-    print(f"✅ Logged in as {bot.user}")
+    print(f"Logged in as {bot.user}")
 
 @app.route("/webhook", methods=["POST"])
 def github_webhook():
@@ -33,7 +33,7 @@ def github_webhook():
     url = pr.get("html_url")
     user = pr.get("user", {}).get("login")
 
-    message = f"📌 **PR {action}**: [{title}]({url}) by `{user}`"
+    message = f"**PR {action}**: [{title}]({url}) by `{user}`"
 
     # Run async bot action from Flask
     bot.loop.create_task(send_to_discord(message))
@@ -42,7 +42,7 @@ def github_webhook():
 async def send_to_discord(message):
     channel = bot.get_channel(CHANNEL_ID)
     if not channel:
-        print("❌ Channel not found.")
+        print("Channel not found.")
         return
 
     # Optionally create or reuse a thread
@@ -51,7 +51,7 @@ async def send_to_discord(message):
 
 # Run Flask server and Discord bot
 def run_flask():
-    app.run(port=5000)
+    app.run(host="0.0.0.0", port=5000)
 
 if __name__ == "__main__":
     threading.Thread(target=run_flask).start()
